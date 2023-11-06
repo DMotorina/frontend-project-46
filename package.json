@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "yaml": "^2.3.4"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"

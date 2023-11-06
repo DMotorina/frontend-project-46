@@ -11,8 +11,18 @@
 make install
 ```
 
+# install the package
+```bash
+make link
+```
+
 ## Run tests
 
 ```bash
 make test
+```
+
+# help
+```bash
+gendiff -h
 ```
