@@ -1,11 +1,14 @@
-// import fs from 'fs';
-// import path from 'path';
+#!/usr/bin/env node
+
 import parser from './parser.js';
+import getDiffTree from './buildAST.js';
+import _ from 'lodash';
+import getStylishTreeDiff from './stylish.js';
 
-export default (filepath1, filepath2) => {
-  // console.log(path.extname(filepath1))
-  // const data1 = JSON.parse(fs.readFileSync(path.resolve(filepath1)));
-  // const data2 = JSON.parse(fs.readFileSync(path.resolve(filepath2)));
-
-  return parser(filepath1, filepath2);
+const genDiff = (filepath1, filepath2) => {
+  const [obj1, obj2] = parser(filepath1, filepath2);
+  const result = getDiffTree(obj1, obj2)
+  return getStylishTreeDiff(result)
 };
+
+export default genDiff;

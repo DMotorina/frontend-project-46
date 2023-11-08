@@ -28,4 +28,4 @@ gendiff -h
 ```
 
 # Сompare files: 
-<a href="https://asciinema.org/a/619524" target="_blank"><img src="https://asciinema.org/a/619524.svg" /></a>
+<a href="https://asciinema.org/a/619896" target="_blank"><img src="https://asciinema.org/a/619896.svg" /></a>
