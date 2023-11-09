@@ -27,5 +27,11 @@ make test
 gendiff -h
 ```
 
-# Сompare files: 
-<a href="https://asciinema.org/a/619896" target="_blank"><img src="https://asciinema.org/a/619896.svg" /></a>
+# compare files: choost format:
+gendiff -f formatName file1.json file2.yml
+
+Default('stylish') format JSON/yaml dem:
+<a href="https://asciinema.org/a/620055" target="_blank"><img src="https://asciinema.org/a/620055.svg" /></a>
+
+Plain format JSON/yaml dem:
+<a href="https://asciinema.org/a/620056" target="_blank"><img src="https://asciinema.org/a/620056.svg" /></a>

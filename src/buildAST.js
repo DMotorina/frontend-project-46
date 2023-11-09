@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import _ from 'lodash';
+import _ from 'lodash'
 
 const createUniqueKeys = (data1, data2) => {
   const keys = [...Object.keys(data1), ...Object.keys(data2)]
@@ -51,8 +51,4 @@ const buildAST = (data1, data2) => {
   return result
 }
 
-const getDiffTree = (data1, data2) => {
-  return buildAST(data1, data2)
-}
-
-export default getDiffTree
+export default (data1, data2) => buildAST(data1, data2)
