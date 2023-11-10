@@ -5,33 +5,73 @@
 
 [![Actions Status](https://github.com/DMotorina/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/DMotorina/frontend-project-46/actions)
 
-## Setup
+## Description
+Compares two configuration files and shows a difference
 
-```bash
+## Requirements
+The minimum version of node.js - 13.2.0
+
+## Dependencies
+- commander,
+- lodash,
+- yaml
+
+## devDependencies:
+- eslint,
+- eslint-config-airbnb-base,
+- eslint-plugin-import,
+- jest
+
+## Install
+
+### Clone repository
+```
+git clone git@github.com:DMotorina/frontend-project-46.git
+``` 
+
+### Go to the desired folder
+```
+cd frontend-project-46/
+```
+
+### Install make
+```
 make install
 ```
 
-# install the package
-```bash
-make link
+### Checking that everything is updated
+```
+sudo npm link
 ```
 
-## Run tests
-
-```bash
+### Run tests
+```
 make test
 ```
 
-# help
-```bash
+### Debugging
+```
+make publish
+```
+
+### Checking that everything is updated
+```
+sudo npm link
+```
+
+### Open comparison panel
+```
 gendiff -h
 ```
 
-# compare files: choost format:
-gendiff -f formatName file1.json file2.yml
+## Compare files. Choose format:
+gendiff -f formatName file1.json/.yml file2.json/.yml
 
-Default('stylish') format JSON/yaml dem:
+### Demonstration JSON/yml files in default('stylish') format:
 <a href="https://asciinema.org/a/620055" target="_blank"><img src="https://asciinema.org/a/620055.svg" /></a>
 
-Plain format JSON/yaml dem:
+### Demonstration JSON/yml files in plain format:
 <a href="https://asciinema.org/a/620056" target="_blank"><img src="https://asciinema.org/a/620056.svg" /></a>
+
+### Demonstration JSON/yml files in json format:
+<a href="https://asciinema.org/a/620251" target="_blank"><img src="https://asciinema.org/a/620251.svg" /></a>

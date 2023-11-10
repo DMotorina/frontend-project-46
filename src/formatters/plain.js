@@ -18,11 +18,7 @@ const stringify = (value) => {
         return '[complex value]'
     }
 
-    if(_.isString(value)) {
-        return `'${value}'`
-    }
-
-    return value
+    return _.isString(value) ? `'${value}'` : value
 }
 
 const getPlaiTreeFormat = (tree, parent = '') => {
@@ -42,12 +38,12 @@ const getPlaiTreeFormat = (tree, parent = '') => {
         case 'changed': 
             const value1 = `${stringify(tree.valueBefore)}`
             const value2 = `${stringify(tree.valueAfter)}`
-
             return getSentencesForChangedValue(path, value1, value2)
 
         case 'nested': 
-            const childrens = tree.children.map((child) => getPlaiTreeFormat(child, `${path}.`))
-            return childrens.filter((item) => item !== null).join('\n')
+            const childrens = tree.children
+            const data = childrens.map((child) => getPlaiTreeFormat(child, `${path}.`))
+            return data.filter((item) => item !== null).join('\n')
 
         default: 
             throw new Error(`Unknown type: ${tree.type}`)

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import _ from 'lodash';
+import _ from 'lodash'
 
 const symbols = {
     added: '+',
@@ -8,43 +8,62 @@ const symbols = {
     nested: ' ',
 }
 
-const makeIndent = (depth) => ' '.repeat((depth * 4) - 2)
+const str = ' '
+const indentations = 4
+const leftShifts = 2
+
+const makeIndent = (depth) => str.repeat((depth * indentations) - leftShifts)
+
+const getKeys = (keys, value, depth) => {
+    return keys.map(
+        (key) => `${makeIndent(depth + 1)}  ${key}: ${stringify(value[key],depth + 1)}`
+    )
+}
   
 const stringify = (value, depth = 1) => {
     if (!_.isObject(value)) {
       return value
     }
 
-    const keys = Object.keys(value)
-    const getKeys = keys.map((key) => `${makeIndent(depth + 1)}  ${key}: ${stringify(value[key],depth + 1)}`)
-    return `{\n${getKeys.join('\n')}\n  ${makeIndent(depth)}}`
+    const allKeys = Object.keys(value)
+    const keys = getKeys(allKeys, value, depth)
+    return `{\n${keys.join('\n')}\n  ${makeIndent(depth)}}`
 }
 
-const getStylishTreeDiff = (tree, depth = 1) => {
+const getValueForChangedType = (value1, value2, key, depth) => {
+    return `${makeIndent(depth)}${symbols.removed} ${key}: ${value1}\n${makeIndent(depth)}${
+        symbols.added
+    } ${key}: ${value2}`
+}
+
+const getValueForNestedType = (data, key, depth) => {
+    return `${makeIndent(depth)}  ${key}: {\n${data.join('\n')}\n ${makeIndent(depth)} }`
+}
+
+const getStylishTreeFormat = (tree, depth = 1) => {
+    const key = tree.key
+
     switch(tree.type) {
         case 'nested':
             const childrens = tree.children
-            const data = childrens.map((child) => getStylishTreeDiff(child, depth + 1))
-            return `${makeIndent(depth)}  ${tree.key}: {\n${data.join('\n')}\n ${makeIndent(depth)} }`
-
-        case 'added':
-        case 'removed':
-        case 'unchanged':
-            return `${makeIndent(depth)}${symbols[tree.type]} ${tree.key}: ${stringify(tree.value, depth)}`;
+            const data = childrens.map((child) => getStylishTreeFormat(child, depth + 1))
+            return getValueForNestedType(data, key, depth)
 
         case 'changed':
             const value1 = stringify(tree.valueBefore, depth)
             const value2 = stringify(tree.valueAfter, depth)
+            return getValueForChangedType(value1, value2, key, depth)
 
-            return `${makeIndent(depth)}${symbols.removed} ${tree.key}: ${value1}\n${makeIndent(depth)}${
-                symbols.added
-            } ${tree.key}: ${value2}`
+        case 'added':
+        case 'removed':
+        case 'unchanged':
+            return `${makeIndent(depth)}${symbols[tree.type]} ${key}: ${stringify(tree.value, depth)}`
 
         default: 
             throw new Error(`Unknown type: ${tree.type}`)   
     }
 }
 export default (data) => {
-    const result = data.map((tree) => getStylishTreeDiff(tree, 1))
+    const result = data.map((tree) => getStylishTreeFormat(tree, 1))
     return `{\n${result.join('\n')}\n}`
 }

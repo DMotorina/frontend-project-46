@@ -2,4 +2,12 @@
 import stylish from './stylish.js'
 import plain from './plain.js'
 
-export default (tree, format) => format === 'stylish' ? stylish(tree) : plain(tree)
+const formats = {
+    'stylish': stylish,
+    'plain': plain,
+    'json': JSON.stringify
+}
+
+export default (tree, format) => {
+    return formats[format](tree)
+}
