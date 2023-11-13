@@ -12,14 +12,15 @@ Compares two configuration files and shows a difference
 The minimum version of node.js - 13.2.0
 
 ## Dependencies
-- commander,
-- lodash,
+- commander
+- js-yaml
+- lodash
 - yaml
 
 ## devDependencies:
-- eslint,
-- eslint-config-airbnb-base,
-- eslint-plugin-import,
+- eslint
+- eslint-config-airbnb-base
+- eslint-plugin-import
 - jest
 
 ## Install

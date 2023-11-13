@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// eslint-disable-next-line import/no-extraneous-dependencies
 import ymal from 'js-yaml';
 
-export default (data, format) => (format === 'json' ? JSON.parse(data) : ymal.load(data));
+const parsers = { json: JSON.parse, yml: ymal.load };
+export const parser = (data, format) => parsers[format](data);
