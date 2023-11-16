@@ -15,7 +15,6 @@ The minimum version of node.js - 13.2.0
 - commander
 - js-yaml
 - lodash
-- yaml
 
 ## devDependencies:
 - eslint
