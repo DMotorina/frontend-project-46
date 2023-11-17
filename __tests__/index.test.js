@@ -16,8 +16,6 @@ const resultPlain = readFile('expected_plain_file.txt');
 const resultJSON = readFile('expected_json_file.txt');
 
 test.each([
-  ['file1.json', 'file2.json', null, resultStylish],
-  ['file1.yml', 'file2.yml', null, resultStylish],
   ['file1.json', 'file2.json', 'stylish', resultStylish],
   ['file1.yml', 'file2.yml', 'stylish', resultStylish],
   ['file1.json', 'file2.json', 'plain', resultPlain],

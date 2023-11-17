@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 import path from 'path';
-import { cwd } from 'process';
-import { readFileSync } from 'fs';
+import fs from 'fs';
 
-import { parser } from './parser.js';
+import { parse } from './parser.js';
 import { format } from './format/format.js';
-import { buildAST } from './ast/builder.js';
+import { buildAST } from './builder.js';
 
-const getFormat = (filePath) => path.extname(path.resolve(cwd(), filePath)).slice(1);
+const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
+const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
+const getFormat = (filename) => filename.split('.')[1];
+const getData = (filepath) => parse(readFile(filepath), getFormat(filepath));
 
-export const generateDifference = (filePath1, filePath2, formatName = null) => {
-  const tree = buildAST(
-    parser(readFileSync(filePath1, 'utf-8'), getFormat(filePath1)),
-    parser(readFileSync(filePath2, 'utf-8'), getFormat(filePath2)),
-  );
+export const generateDifference = (filePath1, filePath2, formatName = 'stylish') => {
+  const data1 = getData(filePath1);
+  const data2 = getData(filePath2);
 
-  return format(tree, formatName ?? 'stylish');
+  const tree = buildAST(data1, data2);
+
+  return format(tree, formatName);
 };
