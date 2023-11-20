@@ -4,7 +4,7 @@ import _ from 'lodash';
 const createUniqueKeys = (data1, data2) => _.uniq([...Object.keys(data1), ...Object.keys(data2)]);
 
 const buildAST = (data1, data2) => {
-  const sortedKeys = createUniqueKeys(data1, data2).sort();
+  const sortedKeys = _.sortBy(createUniqueKeys(data1, data2));
 
   const result = sortedKeys.map((key) => {
     if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
@@ -49,4 +49,5 @@ const buildAST = (data1, data2) => {
 
   return result;
 };
+
 export default buildAST;
