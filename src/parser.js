@@ -2,4 +2,4 @@
 import ymal from 'js-yaml';
 
 const parsers = { json: JSON.parse, yml: ymal.load };
-export const parse = (data, format) => parsers[format](data);
+export default (data, format) => parsers[format](data);

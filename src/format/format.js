@@ -1,6 +1,11 @@
 #!/usr/bin/env node
-import { stylish } from './formatters/stylish/stylish.js';
-import { plain } from './formatters/plain/plain.js';
+import makeStylish from './formatters/stylish.js';
+import makePlain from './formatters/plain.js';
 
-const formats = { stylish, plain, json: JSON.stringify };
-export const format = (tree, formatName) => formats[formatName](tree);
+const formats = {
+  stylish: makeStylish,
+  plain: makePlain,
+  json: JSON.stringify,
+};
+
+export default (tree, formatName) => formats[formatName](tree);

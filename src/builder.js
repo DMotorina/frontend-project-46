@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import _ from 'lodash';
 
 const isAdded = (_data2, data1, key) => !(_.has(data1, key));
@@ -14,10 +15,7 @@ const getRemovedNode = (_buildAST, _data2, data1, key) => ({
   value: data1[key],
 });
 
-const isNested = (data2, data1, key) => {
-  return (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key]))
-    && (data1[key] !== null && data2[key] !== null);
-};
+const isNested = (data2, data1, key) => _.isPlainObject(data1[key]) && _.isPlainObject(data2[key]);
 const getNestedNode = (buildAST, data2, data1, key) => ({
   type: 'nested',
   key,
@@ -49,8 +47,10 @@ const checkers = [
 
 const createUniqueKeys = (data1, data2) => _.uniq([...Object.keys(data1), ...Object.keys(data2)]);
 
-export const buildAST = (data1, data2) => createUniqueKeys(data1, data2).sort().map((key) => {
-  for (const [check, getNode] of checkers) {
+const buildAST = (data1, data2) => createUniqueKeys(data1, data2).sort().map((key) => {
+  for (let element = 0; element < checkers.length; element += 1) {
+    const [check, getNode] = checkers[element];
+
     if (check(data2, data1, key)) {
       return getNode(buildAST, data2, data1, key);
     }
@@ -58,3 +58,4 @@ export const buildAST = (data1, data2) => createUniqueKeys(data1, data2).sort().
 
   return null;
 });
+export default buildAST;
